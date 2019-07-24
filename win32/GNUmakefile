@@ -22,13 +22,13 @@
 # We set this to point to cmd.exe in case GNU Make finds sh.exe in the path.
 # Comment this line out if necessary
 #
-SHELL := cmd.exe
+SHELL := /home/atnnn/code/perl/win32/cmd-exe.pl
 
 # define whether you want to use native gcc compiler or cross-compiler
 # possible values: gcc
 #                  i686-w64-mingw32-gcc
 #                  x86_64-w64-mingw32-gcc
-GCCBIN := gcc
+GCCBIN := x86_64-pc-mingw32-cc
 
 ifeq ($(GCCBIN),x86_64-w64-mingw32-gcc)
 GCCCROSS := x86_64-w64-mingw32
@@ -36,6 +36,8 @@ endif
 ifeq ($(GCCBIN),i686-w64-mingw32-gcc)
 GCCCROSS := i686-w64-mingw32
 endif
+
+GCCCROSS := x86_64-pc-mingw32
 
 
 ##
@@ -46,8 +48,8 @@ endif
 # Set these to wherever you want "gmake install" to put your
 # newly built perl.
 #
-INST_DRV := c:
-INST_TOP := $(INST_DRV)\perl
+INST_DRV := 
+INST_TOP := /home/atnnn/code/perl/prefix
 
 #
 # Uncomment if you want to build a 32-bit Perl using a 32-bit compiler
@@ -185,7 +187,7 @@ DEFAULT_INC_EXCLUDES_DOT := define
 # Visual C++ 2019 (aka Visual C++ 14.2) (full version or Community Edition)
 #CCTYPE		:= MSVC142
 # MinGW or mingw-w64 with gcc-3.4.5 or later
-#CCTYPE		:= GCC
+CCTYPE		:= GCC
 
 #
 # If you are using Intel C++ Compiler uncomment this
@@ -583,14 +585,14 @@ BUILDOPT        += -D__USE_MINGW_ANSI_STDIO
 MINIBUILDOPT    += -D__USE_MINGW_ANSI_STDIO
 endif
 
-GCCVER1   := $(shell for /f "delims=. tokens=1,2,3" %%i in ('gcc -dumpversion') do echo %%i)
-GCCVER2   := $(shell for /f "delims=. tokens=1,2,3" %%i in ('gcc -dumpversion') do echo %%j)
-GCCVER3   := $(shell for /f "delims=. tokens=1,2,3" %%i in ('gcc -dumpversion') do echo %%k)
+GCCVER1   := 7
+GCCVER2   := 4
+GCCVER3   := 0
 
 # If you are using GCC, 4.3 or later by default we add the -fwrapv option.
 # See https://rt.perl.org/Ticket/Display.html?id=121505
 #
-GCCWRAPV := $(shell if "$(GCCVER1)"=="4" (if "$(GCCVER2)" geq "3" echo define) else if "$(GCCVER1)" geq "5" (echo define))
+GCCWRAPV := define
 
 ifeq ($(GCCWRAPV),define)
 BUILDOPT        += -fwrapv
