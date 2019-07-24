@@ -11,7 +11,7 @@
 #
 # The easiest way to customize the build process is to use parameters like this:
 #
-# c:\dev\perlsrc\win32> gmake INST_TOP=c:\sw\perl CCHOME=c:\sw\mingw USE_64_BIT_INT=define
+# c:/dev/perlsrc/win32> gmake INST_TOP=c:/sw/perl CCHOME=c:/sw/mingw USE_64_BIT_INT=define
 
 
 ##
@@ -66,7 +66,7 @@ INST_TOP := /home/atnnn/code/perl/prefix
 # versioned installation can be obtained by setting INST_TOP above to a
 # path that includes an arbitrary version string.
 #
-#INST_VER	:= \5.31.3
+#INST_VER	:= /5.31.3
 
 #
 # Comment this out if you DON'T want your perl installation to have
@@ -77,11 +77,11 @@ INST_TOP := /home/atnnn/code/perl/prefix
 # the same location.  Commenting it out gives you a simpler
 # installation that is easier to understand for beginners.
 #
-#INST_ARCH	:= \$(ARCHNAME)
+#INST_ARCH	:= /$(ARCHNAME)
 
 #
 # Uncomment this if you want perl to run
-# 	$Config{sitelibexp}\sitecustomize.pl
+# 	$Config{sitelibexp}/sitecustomize.pl
 # before anything else.  This script can then be set up, for example,
 # to add additional entries to @INC.
 #
@@ -154,7 +154,7 @@ DEFAULT_INC_EXCLUDES_DOT := define
 
 #
 # Uncomment this if you want to disable looking up values from
-# HKEY_CURRENT_USER\Software\Perl and HKEY_LOCAL_MACHINE\Software\Perl in
+# HKEY_CURRENT_USER/Software/Perl and HKEY_LOCAL_MACHINE/Software/Perl in
 # the Registry.
 #
 #USE_NO_REGISTRY := define
@@ -257,7 +257,7 @@ CCTYPE		:= GCC
 # For GCC builds this should be the directory containing the bin, include,
 # lib directories for your compiler.
 #
-#CCHOME		:= C:\MinGW
+#CCHOME		:= C:/MinGW
 
 #
 # Additional compiler flags can be specified here.
@@ -395,7 +395,7 @@ endif
 # by $(VCToolsInstallDir).
 ifeq ($(CCHOME),)
 ifeq ($(CCTYPE),GCC)
-CCHOME		:= C:\MinGW
+CCHOME		:= C:/MinGW
 else ifeq ($(CCTYPE),MSVC60)
 CCHOME		:= $(MSVCDir)
 else ifeq ($(CCTYPE),MSVC70)
@@ -506,32 +506,32 @@ endif
 # Set the install location of the compiler headers/libraries.
 # These are saved into $Config{incpath} and $Config{libpth}.
 ifneq ($(GCCCROSS),)
-CCINCDIR := $(CCHOME)\$(GCCCROSS)\include
-CCLIBDIR := $(CCHOME)\$(GCCCROSS)\lib
+CCINCDIR := $(CCHOME)/$(GCCCROSS)/include
+CCLIBDIR := $(CCHOME)/$(GCCCROSS)/lib
 ARCHPREFIX := $(GCCCROSS)-
 else ifeq ($(CCTYPE),GCC)
-CCINCDIR := $(CCHOME)\include
-CCLIBDIR := $(CCHOME)\lib
+CCINCDIR := $(CCHOME)/include
+CCLIBDIR := $(CCHOME)/lib
 ARCHPREFIX :=
 else
-CCINCDIR := $(CCHOME)\include
+CCINCDIR := $(CCHOME)/include
 ifeq ($(CCTYPE),MSVC141)
 ifeq ($(WIN64),define)
-CCLIBDIR := $(CCHOME)\lib\x64
+CCLIBDIR := $(CCHOME)/lib/x64
 else
-CCLIBDIR := $(CCHOME)\lib\x86
+CCLIBDIR := $(CCHOME)/lib/x86
 endif
 else ifeq ($(CCTYPE),MSVC142)
 ifeq ($(WIN64),define)
-CCLIBDIR := $(CCHOME)\lib\x64
+CCLIBDIR := $(CCHOME)/lib/x64
 else
-CCLIBDIR := $(CCHOME)\lib\x86
+CCLIBDIR := $(CCHOME)/lib/x86
 endif
 else
 ifeq ($(WIN64),define)
-CCLIBDIR := $(CCHOME)\lib\amd64
+CCLIBDIR := $(CCHOME)/lib/amd64
 else
-CCLIBDIR := $(CCHOME)\lib
+CCLIBDIR := $(CCHOME)/lib
 endif
 endif
 ARCHPREFIX :=
@@ -542,26 +542,26 @@ ifeq ($(CCTYPE),GCC)
 ifneq ($(GCCCROSS),)
 CCDLLDIR := $(CCLIBDIR)
 else
-CCDLLDIR := $(CCHOME)\bin
+CCDLLDIR := $(CCHOME)/bin
 endif
 endif
 
-ARCHDIR		= ..\lib\$(ARCHNAME)
-COREDIR		= ..\lib\CORE
-AUTODIR		= ..\lib\auto
-LIBDIR		= ..\lib
-EXTDIR		= ..\ext
-DISTDIR		= ..\dist
-CPANDIR		= ..\cpan
-PODDIR		= ..\pod
-HTMLDIR		= .\html
+ARCHDIR		= ../lib/$(ARCHNAME)
+COREDIR		= ../lib/CORE
+AUTODIR		= ../lib/auto
+LIBDIR		= ../lib
+EXTDIR		= ../ext
+DISTDIR		= ../dist
+CPANDIR		= ../cpan
+PODDIR		= ../pod
+HTMLDIR		= ./html
 
-INST_SCRIPT	= $(INST_TOP)$(INST_VER)\bin
+INST_SCRIPT	= $(INST_TOP)$(INST_VER)/bin
 INST_BIN	= $(INST_SCRIPT)$(INST_ARCH)
-INST_LIB	= $(INST_TOP)$(INST_VER)\lib
+INST_LIB	= $(INST_TOP)$(INST_VER)/lib
 INST_ARCHLIB	= $(INST_LIB)$(INST_ARCH)
-INST_COREDIR	= $(INST_ARCHLIB)\CORE
-INST_HTML	= $(INST_TOP)$(INST_VER)\html
+INST_COREDIR	= $(INST_ARCHLIB)/CORE
+INST_HTML	= $(INST_TOP)$(INST_VER)/html
 
 #
 # Programs to compile, build .lib files and link
@@ -607,7 +607,7 @@ a = .a
 # Options
 #
 
-INCLUDES	= -I.\include -I. -I..
+INCLUDES	= -I./include -I. -I..
 DEFINES		= -DWIN32
 ifeq ($(WIN64),define)
 DEFINES		+= -DWIN64 -DCONSERVATIVE
@@ -698,8 +698,8 @@ RSC		= rc
 # Options
 #
 
-INCLUDES	= -I.\include -I. -I..
-#PCHFLAGS	= -Fpc:\temp\vcmoduls.pch -YX
+INCLUDES	= -I./include -I. -I..
+#PCHFLAGS	= -Fpc:/temp/vcmoduls.pch -YX
 DEFINES		= -DWIN32 -D_CONSOLE -DNO_STRICT
 LOCDEFS		= -DPERLDLL -DPERL_CORE
 CXX_FLAG	= -TP -EHsc
@@ -944,16 +944,16 @@ endif
 #do not put $(MINIPERL) as a dep/prereq in a rule, instead put $(HAVEMINIPERL)
 #$(MINIPERL) is not a buildable target, use "gmake mp" if you want to just build
 #miniperl alone
-MINIPERL	= ..\miniperl.exe
-HAVEMINIPERL	= ..\lib\buildcustomize.pl
+MINIPERL	= ../miniperl.exe
+HAVEMINIPERL	= ../lib/buildcustomize.pl
 MINIDIR		= mini
-PERLEXE		= ..\perl.exe
-WPERLEXE	= ..\wperl.exe
-PERLEXESTATIC	= ..\perl-static.exe
-STATICDIR	= .\static.tmp
-GLOBEXE		= ..\perlglob.exe
-CONFIGPM	= ..\lib\Config.pm
-GENUUDMAP	= ..\generate_uudmap.exe
+PERLEXE		= ../perl.exe
+WPERLEXE	= ../wperl.exe
+PERLEXESTATIC	= ../perl-static.exe
+STATICDIR	= ./static.tmp
+GLOBEXE		= ../perlglob.exe
+CONFIGPM	= ../lib/Config.pm
+GENUUDMAP	= ../generate_uudmap.exe
 ifeq ($(BUILD_STATIC),define)
 PERLSTATIC	= static
 else
@@ -965,18 +965,18 @@ endif
 endif
 
 # Unicode data files generated by mktables
-UNIDATAFILES	 = ..\lib\unicore\Decomposition.pl ..\lib\unicore\TestProp.pl \
-		   ..\lib\unicore\CombiningClass.pl ..\lib\unicore\Name.pl \
-		   ..\lib\unicore\UCD.pl ..\lib\unicore\Name.pm            \
-		   ..\lib\unicore\Heavy.pl ..\lib\unicore\mktables.lst
+UNIDATAFILES	 = ../lib/unicore/Decomposition.pl ../lib/unicore/TestProp.pl \
+		   ../lib/unicore/CombiningClass.pl ../lib/unicore/Name.pl \
+		   ../lib/unicore/UCD.pl ../lib/unicore/Name.pm            \
+		   ../lib/unicore/Heavy.pl ../lib/unicore/mktables.lst
 
 # Directories of Unicode data files generated by mktables
-UNIDATADIR1	= ..\lib\unicore\To
-UNIDATADIR2	= ..\lib\unicore\lib
+UNIDATADIR1	= ../lib/unicore/To
+UNIDATADIR2	= ../lib/unicore/lib
 
-PERLEXE_MANIFEST= .\perlexe.manifest
-PERLEXE_ICO	= .\perlexe.ico
-PERLEXE_RES	= .\perlexe.res
+PERLEXE_MANIFEST= ./perlexe.manifest
+PERLEXE_ICO	= ./perlexe.ico
+PERLEXE_RES	= ./perlexe.res
 PERLDLL_RES	=
 
 # Nominate a target which causes extensions to be re-built
@@ -986,45 +986,45 @@ PERLDLL_RES	=
 PERLDEP = $(PERLIMPLIB)
 
 
-PL2BAT		= bin\pl2bat.pl
+PL2BAT		= bin/pl2bat.pl
 
 UTILS		=			\
-		..\utils\h2ph		\
-		..\utils\splain		\
-		..\utils\perlbug	\
-		..\utils\pl2pm 		\
-		..\utils\h2xs		\
-		..\utils\perldoc	\
-		..\utils\perlivp	\
-		..\utils\libnetcfg	\
-		..\utils\enc2xs		\
-		..\utils\encguess	\
-		..\utils\piconv		\
-		..\utils\corelist	\
-		..\utils\cpan		\
-		..\utils\xsubpp		\
-		..\utils\pod2html	\
-		..\utils\prove		\
-		..\utils\ptar		\
-		..\utils\ptardiff	\
-		..\utils\ptargrep	\
-		..\utils\zipdetails	\
-		..\utils\shasum		\
-		..\utils\instmodsh	\
-		..\utils\json_pp	\
-		bin\exetype.pl		\
-		bin\runperl.pl		\
-		bin\pl2bat.pl		\
-		bin\perlglob.pl		\
-		bin\search.pl
+		../utils/h2ph		\
+		../utils/splain		\
+		../utils/perlbug	\
+		../utils/pl2pm 		\
+		../utils/h2xs		\
+		../utils/perldoc	\
+		../utils/perlivp	\
+		../utils/libnetcfg	\
+		../utils/enc2xs		\
+		../utils/encguess	\
+		../utils/piconv		\
+		../utils/corelist	\
+		../utils/cpan		\
+		../utils/xsubpp		\
+		../utils/pod2html	\
+		../utils/prove		\
+		../utils/ptar		\
+		../utils/ptardiff	\
+		../utils/ptargrep	\
+		../utils/zipdetails	\
+		../utils/shasum		\
+		../utils/instmodsh	\
+		../utils/json_pp	\
+		bin/exetype.pl		\
+		bin/runperl.pl		\
+		bin/pl2bat.pl		\
+		bin/perlglob.pl		\
+		bin/search.pl
 
 ifeq ($(CCTYPE),GCC)
 
 CFGSH_TMPL	= config.gc
 CFGH_TMPL	= config_H.gc
-PERLIMPLIB	= $(COREDIR)\libperl531$(a)
+PERLIMPLIB	= $(COREDIR)/libperl531$(a)
 PERLIMPLIBBASE	= libperl531$(a)
-PERLSTATICLIB	= ..\libperl531s$(a)
+PERLSTATICLIB	= ../libperl531s$(a)
 INT64		= long long
 
 else
@@ -1037,11 +1037,11 @@ endif
 
 # makedef.pl must be updated if this changes, and this should normally
 # only change when there is an incompatible revision of the public API.
-PERLIMPLIB	?= $(COREDIR)\perl531$(a)
+PERLIMPLIB	?= $(COREDIR)/perl531$(a)
 PERLIMPLIBBASE	?= perl531$(a)
-PERLEXPLIB	?= $(COREDIR)\perl531.exp
-PERLSTATICLIB	?= ..\perl531s$(a)
-PERLDLL		= ..\perl531.dll
+PERLEXPLIB	?= $(COREDIR)/perl531.exp
+PERLSTATICLIB	?= ../perl531s$(a)
+PERLDLL		= ../perl531.dll
 PERLDLLBASE	= perl531.dll
 
 # don't let "gmake -n all" try to run "miniperl.exe make_ext.pl"
@@ -1054,112 +1054,112 @@ NOOP		= @rem
 #first ones are arrange in compile time order for faster parallel building
 #see #123867 for details
 MICROCORE_SRC	=		\
-		..\toke.c	\
-		..\regcomp.c	\
-		..\regexec.c	\
-		..\op.c		\
-		..\sv.c		\
-		..\pp.c		\
-		..\pp_ctl.c	\
-		..\pp_sys.c	\
-		..\pp_pack.c	\
-		..\pp_hot.c	\
-		..\gv.c		\
-		..\perl.c	\
-		..\utf8.c	\
-		..\dump.c	\
-		..\hv.c		\
-		..\av.c		\
-		..\caretx.c	\
-		..\deb.c	\
-		..\doio.c	\
-		..\doop.c	\
-		..\dquote.c	\
-		..\globals.c	\
-		..\mro_core.c	\
-		..\locale.c	\
-		..\keywords.c	\
-		..\mathoms.c    \
-		..\mg.c		\
-		..\numeric.c	\
-		..\pad.c	\
-		..\perlapi.c	\
-		..\perly.c	\
-		..\pp_sort.c	\
-		..\reentr.c	\
-		..\run.c	\
-		..\scope.c	\
-		..\taint.c	\
-		..\time64.c	\
-		..\universal.c	\
-		..\util.c
+		../toke.c	\
+		../regcomp.c	\
+		../regexec.c	\
+		../op.c		\
+		../sv.c		\
+		../pp.c		\
+		../pp_ctl.c	\
+		../pp_sys.c	\
+		../pp_pack.c	\
+		../pp_hot.c	\
+		../gv.c		\
+		../perl.c	\
+		../utf8.c	\
+		../dump.c	\
+		../hv.c		\
+		../av.c		\
+		../caretx.c	\
+		../deb.c	\
+		../doio.c	\
+		../doop.c	\
+		../dquote.c	\
+		../globals.c	\
+		../mro_core.c	\
+		../locale.c	\
+		../keywords.c	\
+		../mathoms.c    \
+		../mg.c		\
+		../numeric.c	\
+		../pad.c	\
+		../perlapi.c	\
+		../perly.c	\
+		../pp_sort.c	\
+		../reentr.c	\
+		../run.c	\
+		../scope.c	\
+		../taint.c	\
+		../time64.c	\
+		../universal.c	\
+		../util.c
 
 EXTRACORE_SRC	+= perllib.c
 
 ifeq ($(PERL_MALLOC),define)
-EXTRACORE_SRC	+= ..\malloc.c
+EXTRACORE_SRC	+= ../malloc.c
 endif
 
-EXTRACORE_SRC	+= ..\perlio.c
+EXTRACORE_SRC	+= ../perlio.c
 
 WIN32_SRC	=		\
-		.\win32.c	\
-		.\win32sck.c	\
-		.\win32thread.c	\
-		.\fcrypt.c
+		./win32.c	\
+		./win32sck.c	\
+		./win32thread.c	\
+		./fcrypt.c
 
 # We need this for miniperl build unless we override canned
-# config.h #define building mini\*
+# config.h #define building mini/*
 #ifeq ($(USE_PERLIO)" == "define"
-WIN32_SRC	+= .\win32io.c
+WIN32_SRC	+= ./win32io.c
 #endif
 
 CORE_NOCFG_H	=		\
-		..\av.h		\
-		..\cop.h	\
-		..\cv.h		\
-		..\dosish.h	\
-		..\embed.h	\
-		..\form.h	\
-		..\gv.h		\
-		..\handy.h	\
-		..\hv.h		\
-		..\hv_func.h	\
-		..\iperlsys.h	\
-		..\mg.h		\
-		..\nostdio.h	\
-		..\op.h		\
-		..\opcode.h	\
-		..\perl.h	\
-		..\perlapi.h	\
-		..\perlsdio.h	\
-		..\perly.h	\
-		..\pp.h		\
-		..\proto.h	\
-		..\regcomp.h	\
-		..\regexp.h	\
-		..\scope.h	\
-		..\sv.h		\
-		..\thread.h	\
-		..\unixish.h	\
-		..\utf8.h	\
-		..\util.h	\
-		..\warnings.h	\
-		..\XSUB.h	\
-		..\EXTERN.h	\
-		..\perlvars.h	\
-		..\intrpvar.h	\
-		.\include\dirent.h	\
-		.\include\netdb.h	\
-		.\include\sys\errno2.h	\
-		.\include\sys\socket.h	\
-		.\win32.h
+		../av.h		\
+		../cop.h	\
+		../cv.h		\
+		../dosish.h	\
+		../embed.h	\
+		../form.h	\
+		../gv.h		\
+		../handy.h	\
+		../hv.h		\
+		../hv_func.h	\
+		../iperlsys.h	\
+		../mg.h		\
+		../nostdio.h	\
+		../op.h		\
+		../opcode.h	\
+		../perl.h	\
+		../perlapi.h	\
+		../perlsdio.h	\
+		../perly.h	\
+		../pp.h		\
+		../proto.h	\
+		../regcomp.h	\
+		../regexp.h	\
+		../scope.h	\
+		../sv.h		\
+		../thread.h	\
+		../unixish.h	\
+		../utf8.h	\
+		../util.h	\
+		../warnings.h	\
+		../XSUB.h	\
+		../EXTERN.h	\
+		../perlvars.h	\
+		../intrpvar.h	\
+		./include/dirent.h	\
+		./include/netdb.h	\
+		./include/sys/errno2.h	\
+		./include/sys/socket.h	\
+		./win32.h
 
-CORE_H		= $(CORE_NOCFG_H) .\config.h ..\git_version.h
+CORE_H		= $(CORE_NOCFG_H) ./config.h ../git_version.h
 
-UUDMAP_H	= ..\uudmap.h
-BITCOUNT_H	= ..\bitcount.h
-MG_DATA_H	= ..\mg_data.h
+UUDMAP_H	= ../uudmap.h
+BITCOUNT_H	= ../bitcount.h
+MG_DATA_H	= ../mg_data.h
 GENERATED_HEADERS = $(UUDMAP_H) $(BITCOUNT_H) $(MG_DATA_H)
 
 HAVE_COREDIR	= .coreheaders
@@ -1168,10 +1168,10 @@ MICROCORE_OBJ	= $(MICROCORE_SRC:.c=$(o))
 CORE_OBJ	= $(MICROCORE_OBJ) $(EXTRACORE_SRC:.c=$(o))
 WIN32_OBJ	= $(WIN32_SRC:.c=$(o))
 
-MINICORE_OBJ	= $(subst ..\,mini\,$(MICROCORE_OBJ))	\
-		  $(MINIDIR)\miniperlmain$(o)	\
-		  $(MINIDIR)\perlio$(o)
-MINIWIN32_OBJ	= $(subst .\,mini\,$(WIN32_OBJ))
+MINICORE_OBJ	= $(subst ../,mini/,$(MICROCORE_OBJ))	\
+		  $(MINIDIR)/miniperlmain$(o)	\
+		  $(MINIDIR)/perlio$(o)
+MINIWIN32_OBJ	= $(subst ./,mini/,$(WIN32_OBJ))
 MINI_OBJ	= $(MINICORE_OBJ) $(MINIWIN32_OBJ)
 DLL_OBJ		= $(DYNALOADER)
 
@@ -1198,9 +1198,9 @@ STATIC_EXT	= Win32CORE
 NORMALIZE_DYN	= Normalize_dyn
 endif
 
-DYNALOADER	= ..\DynaLoader$(o)
+DYNALOADER	= ../DynaLoader$(o)
 
-# vars must be separated by "\t+~\t+", since we're using the tempfile
+# vars must be separated by "/t+~/t+", since we're using the tempfile
 # version of config_sh.pl (we were overflowing someone's buffer by
 # trying to fit them all on the command line)
 #	-- BKS 10-17-1999
@@ -1211,14 +1211,14 @@ CFG_VARS	=					\
 		"archname=$(ARCHNAME)"			\
 		"cc=$(CC)"				\
 		"ld=$(LINK32)"				\
-		"ccflags=$(subst ",\",$(EXTRACFLAGS) $(OPTIMIZE) $(DEFINES) $(BUILDOPT))" \
+		"ccflags=$(subst ",/",$(EXTRACFLAGS) $(OPTIMIZE) $(DEFINES) $(BUILDOPT))" \
 		"usecplusplus=$(USE_CPLUSPLUS)"		\
 		"cf_email=$(EMAIL)"			\
 		"d_mymalloc=$(PERL_MALLOC)"		\
 		"libs=$(LIBFILES)"			\
-		"incpath=$(subst ",\",$(CCINCDIR))"			\
-		"libperl=$(subst ",\",$(PERLIMPLIBBASE))"		\
-		"libpth=$(subst ",\",$(CCLIBDIR);$(EXTRALIBDIRS))"	\
+		"incpath=$(subst ",/",$(CCINCDIR))"			\
+		"libperl=$(subst ",/",$(PERLIMPLIBBASE))"		\
+		"libpth=$(subst ",/",$(CCLIBDIR);$(EXTRALIBDIRS))"	\
 		"libc=$(LIBC)"				\
 		"make=$(PLMAKE)"				\
 		"_o=$(o)"				\
@@ -1235,8 +1235,8 @@ CFG_VARS	=					\
 		"uselargefiles=$(USE_LARGE_FILES)"	\
 		"usesitecustomize=$(USE_SITECUST)"	\
 		"default_inc_excludes_dot=$(DEFAULT_INC_EXCLUDES_DOT)"	\
-		"LINK_FLAGS=$(subst ",\",$(LINK_FLAGS))"\
-		"optimize=$(subst ",\",$(OPTIMIZE))"	\
+		"LINK_FLAGS=$(subst ",/",$(LINK_FLAGS))"\
+		"optimize=$(subst ",/",$(OPTIMIZE))"	\
 		"ARCHPREFIX=$(ARCHPREFIX)"		\
 		"WIN64=$(WIN64)"
 
@@ -1272,11 +1272,11 @@ ifeq ($(CCTYPE),)
 endif
 
 
-..\regcomp$(o) : ..\regnodes.h ..\regcharclass.h
+../regcomp$(o) : ../regnodes.h ../regcharclass.h
 
-..\regexec$(o) : ..\regnodes.h ..\regcharclass.h
+../regexec$(o) : ../regnodes.h ../regcharclass.h
 
-reonly : ..\regnodes.h .\config.h ..\git_version.h $(GLOBEXE) $(HAVEMINIPERL)\
+reonly : ../regnodes.h ./config.h ../git_version.h $(GLOBEXE) $(HAVEMINIPERL)\
 	$(CONFIGPM) $(UNIDATAFILES) $(PERLEXE)				\
 	Extensions_reonly
 
@@ -1292,34 +1292,34 @@ else
 	setargv$(o) $(LIBFILES) && $(EMBED_EXE_MANI)
 endif
 
-..\git_version.h : $(HAVEMINIPERL) ..\make_patchnum.pl
-	$(MINIPERL) -I..\lib ..\make_patchnum.pl
+../git_version.h : $(HAVEMINIPERL) ../make_patchnum.pl
+	$(MINIPERL) -I../lib ../make_patchnum.pl
 
 # make sure that we recompile perl.c if the git version changes
-..\perl$(o) : ..\git_version.h
+../perl$(o) : ../git_version.h
 
-..\config.sh : $(CFGSH_TMPL) config_sh.PL FindExt.pm $(HAVEMINIPERL)
-	$(MINIPERL) -I..\lib config_sh.PL $(CFG_VARS) $(CFGSH_TMPL) > ..\config.sh
+../config.sh : $(CFGSH_TMPL) config_sh.PL FindExt.pm $(HAVEMINIPERL)
+	$(MINIPERL) -I../lib config_sh.PL $(CFG_VARS) $(CFGSH_TMPL) > ../config.sh
 
 # This target is for when changes to the main config.sh happen.
 # Edit config.gc, then make perl using GCC in a minimal configuration (i.e.
 # with MULTI, ITHREADS, IMP_SYS, LARGE_FILES and PERLIO off), then make
 # this target to regenerate config_H.gc.
 regen_config_h:
-	$(MINIPERL) -I..\lib config_sh.PL $(CFG_VARS) $(CFGSH_TMPL) > ..\config.sh
-	$(MINIPERL) -I..\lib ..\configpm --chdir=..
+	$(MINIPERL) -I../lib config_sh.PL $(CFG_VARS) $(CFGSH_TMPL) > ../config.sh
+	$(MINIPERL) -I../lib ../configpm --chdir=..
 	-del /f $(CFGH_TMPL)
-	-$(MINIPERL) -I..\lib config_h.PL "ARCHPREFIX=$(ARCHPREFIX)"
+	-$(MINIPERL) -I../lib config_h.PL "ARCHPREFIX=$(ARCHPREFIX)"
 	rename config.h $(CFGH_TMPL)
 
-$(CONFIGPM): ..\config.sh config_h.PL
-	$(MINIPERL) -I..\lib ..\configpm --chdir=..
-	-$(MINIPERL) -I..\lib config_h.PL "ARCHPREFIX=$(ARCHPREFIX)"
+$(CONFIGPM): ../config.sh config_h.PL
+	$(MINIPERL) -I../lib ../configpm --chdir=..
+	-$(MINIPERL) -I../lib config_h.PL "ARCHPREFIX=$(ARCHPREFIX)"
 
-.\config.h : $(CONFIGPM)
+./config.h : $(CONFIGPM)
 
 # See the comment in Makefile.SH explaining this seemingly cranky ordering
-..\lib\buildcustomize.pl : $(MINI_OBJ) ..\write_buildcustomize.pl
+../lib/buildcustomize.pl : $(MINI_OBJ) ../write_buildcustomize.pl
 ifeq ($(CCTYPE),GCC)
 	$(LINK32) -mconsole -o $(MINIPERL) $(BLINK_FLAGS) $(MINI_OBJ) $(LIBFILES)
 else
@@ -1328,12 +1328,12 @@ else
 	$(subst $@,$(MINIPERL),$(EMBED_EXE_MANI))
 
 endif
-	$(MINIPERL) -I..\lib -f ..\write_buildcustomize.pl ..
+	$(MINIPERL) -I../lib -f ../write_buildcustomize.pl ..
 
 #convinence target, get a working miniperl
 mp : $(CONFIGPM)
 
-$(MINIDIR)\.exists : $(CFGH_TMPL)
+$(MINIDIR)/.exists : $(CFGH_TMPL)
 	if not exist "$(MINIDIR)" mkdir "$(MINIDIR)"
 #
 # Copy the template config.h and set configurables at the end of it
@@ -1535,10 +1535,10 @@ else
 	echo #endif)>> config.h
 endif
 #separate line since this is sentinal that this target is done
-	@rem. > $(MINIDIR)\.exists
+	@rem. > $(MINIDIR)/.exists
 
 $(MINICORE_OBJ) : $(CORE_NOCFG_H)
-	$(CC) -c $(CFLAGS) $(MINIBUILDOPT) -DPERL_EXTERNAL_GLOB -DPERL_IS_MINIPERL $(OBJOUT_FLAG)$@ $(PDBOUT) ..\$(*F).c
+	$(CC) -c $(CFLAGS) $(MINIBUILDOPT) -DPERL_EXTERNAL_GLOB -DPERL_IS_MINIPERL $(OBJOUT_FLAG)$@ $(PDBOUT) ../$(*F).c
 
 $(MINIWIN32_OBJ) : $(CORE_NOCFG_H)
 	$(CC) -c $(CFLAGS) $(MINIBUILDOPT) -DPERL_IS_MINIPERL $(OBJOUT_FLAG)$@ $(PDBOUT) $(*F).c
@@ -1548,7 +1548,7 @@ $(MINIWIN32_OBJ) : $(CORE_NOCFG_H)
 # unless the .IF is true), so instead we use a .ELSE with the default.
 # This is the only file that depends on perlhost.h, vmem.h, and vdir.h
 
-perllib$(o)	: perllib.c perllibst.h .\perlhost.h .\vdir.h .\vmem.h
+perllib$(o)	: perllib.c perllibst.h ./perlhost.h ./vdir.h ./vmem.h
 ifeq ($(USE_IMP_SYS),define)
 	$(CC) -c -I. $(CFLAGS_O) $(CXX_FLAG) $(OBJOUT_FLAG)$@ $(PDBOUT) perllib.c
 else
@@ -1558,7 +1558,7 @@ endif
 # 1. we don't want to rebuild miniperl.exe when config.h changes
 # 2. we don't want to rebuild miniperl.exe with non-default config.h
 # 3. we can't have miniperl.exe depend on git_version.h, as miniperl creates it
-$(MINI_OBJ)	: $(MINIDIR)\.exists $(CORE_NOCFG_H)
+$(MINI_OBJ)	: $(MINIDIR)/.exists $(CORE_NOCFG_H)
 
 $(WIN32_OBJ)	: $(CORE_H)
 
@@ -1568,11 +1568,11 @@ $(DLL_OBJ)	: $(CORE_H)
 
 
 perllibst.h : $(HAVEMINIPERL) $(CONFIGPM) create_perllibst_h.pl
-	$(MINIPERL) -I..\lib create_perllibst_h.pl
+	$(MINIPERL) -I../lib create_perllibst_h.pl
 
-perldll.def : $(HAVEMINIPERL) $(CONFIGPM) ..\embed.fnc ..\makedef.pl
-	$(MINIPERL) -I..\lib -w ..\makedef.pl PLATFORM=win32 $(OPTIMIZE) $(DEFINES) \
-	$(BUILDOPT) CCTYPE=$(CCTYPE) TARG_DIR=..\ > perldll.def
+perldll.def : $(HAVEMINIPERL) $(CONFIGPM) ../embed.fnc ../makedef.pl
+	$(MINIPERL) -I../lib -w ../makedef.pl PLATFORM=win32 $(OPTIMIZE) $(DEFINES) \
+	$(BUILDOPT) CCTYPE=$(CCTYPE) TARG_DIR=../ > perldll.def
 
 $(PERLEXPLIB) : $(PERLIMPLIB)
 
@@ -1601,8 +1601,8 @@ ifeq ($(CCTYPE),GCC)
 	if exist $(STATICDIR) rmdir /s /q $(STATICDIR)
 	for %%i in ($(shell type Extensions_static)) do \
 		@mkdir $(STATICDIR) && cd $(STATICDIR) && \
-		$(ARCHPREFIX)ar x ..\%%i && \
-		$(ARCHPREFIX)ar q ..\$@ *$(o) && \
+		$(ARCHPREFIX)ar x ../%%i && \
+		$(ARCHPREFIX)ar q ../$@ *$(o) && \
 		cd .. && rmdir /s /q $(STATICDIR)
 else
 	$(LIB32) $(LIB_FLAGS) -out:$@ @Extensions_static \
@@ -1612,32 +1612,32 @@ endif
 
 $(PERLEXE_RES): perlexe.rc $(PERLEXE_MANIFEST) $(PERLEXE_ICO)
 
-$(MINIDIR)\globals$(o) : $(GENERATED_HEADERS)
+$(MINIDIR)/globals$(o) : $(GENERATED_HEADERS)
 
 $(UUDMAP_H) $(MG_DATA_H) : $(BITCOUNT_H)
 
 $(BITCOUNT_H) : $(GENUUDMAP)
 	$(GENUUDMAP) $(GENERATED_HEADERS)
 
-$(GENUUDMAP) : ..\mg_raw.h
+$(GENUUDMAP) : ../mg_raw.h
 ifeq ($(CCTYPE),GCC)
-	$(LINK32) $(CFLAGS_O) -o..\generate_uudmap.exe ..\generate_uudmap.c \
+	$(LINK32) $(CFLAGS_O) -o../generate_uudmap.exe ../generate_uudmap.c \
 	$(BLINK_FLAGS) $(LIBFILES)
 else
-	$(CC) $(CFLAGS_O) $(PDBOUT) -Fe..\generate_uudmap.exe ..\generate_uudmap.c -link $(LIBFILES) $(BLINK_FLAGS)
+	$(CC) $(CFLAGS_O) $(PDBOUT) -Fe../generate_uudmap.exe ../generate_uudmap.c -link $(LIBFILES) $(BLINK_FLAGS)
 	$(EMBED_EXE_MANI)
 endif
 
 .PHONY: MakePPPort
 
 MakePPPort : $(HAVEMINIPERL) $(CONFIGPM)
-	$(MINIPERL) -I..\lib ..\mkppport
+	$(MINIPERL) -I../lib ../mkppport
 
 # also known as $(HAVE_COREDIR)
 .coreheaders : $(CORE_H)
-	$(XCOPY) *.h $(COREDIR)\\*.*
-	$(RCOPY) include $(COREDIR)\\*.*
-	$(XCOPY) ..\\*.h $(COREDIR)\\*.*
+	$(XCOPY) *.h $(COREDIR)//*.*
+	$(RCOPY) include $(COREDIR)//*.*
+	$(XCOPY) ..//*.h $(COREDIR)//*.*
 	rem. > $@
 
 perlmain$(o) : runperl.c $(CONFIGPM)
@@ -1656,7 +1656,7 @@ else
 	$(EMBED_EXE_MANI)
 endif
 	copy $(PERLEXE) $(WPERLEXE)
-	$(MINIPERL) -I..\lib bin\exetype.pl $(WPERLEXE) WINDOWS
+	$(MINIPERL) -I../lib bin/exetype.pl $(WPERLEXE) WINDOWS
 
 $(PERLEXESTATIC): $(PERLSTATICLIB) $(CONFIGPM) $(PERLEXEST_OBJ) $(PERLEXE_RES)
 ifeq ($(CCTYPE),GCC)
@@ -1674,38 +1674,38 @@ endif
 
 #most of deps of this target are in DYNALOADER and therefore omitted here
 Extensions : $(PERLDEP) $(DYNALOADER) Extension_lib $(GLOBEXE) MakePPPort
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic !Unicode/Normalize
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic !Unicode/Normalize
 
 Normalize_static : $(CONFIGPM) $(GLOBEXE) $(HAVE_COREDIR) $(UNIDATAFILES)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --static +Unicode/Normalize
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --static +Unicode/Normalize
 
 Normalize_dyn : $(PERLDEP) $(DYNALOADER) $(GLOBEXE) $(UNIDATAFILES)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic +Unicode/Normalize
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic +Unicode/Normalize
 
 Extensions_reonly : $(PERLDEP) $(DYNALOADER)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic +re
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --dynamic +re
 
-Exts_static_general : ..\make_ext.pl $(CONFIGPM) Extension_lib $(GLOBEXE) $(HAVE_COREDIR) MakePPPort
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --static !Unicode/Normalize
+Exts_static_general : ../make_ext.pl $(CONFIGPM) Extension_lib $(GLOBEXE) $(HAVE_COREDIR) MakePPPort
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --static !Unicode/Normalize
 
 Extensions_static : list_static_libs.pl Exts_static_general $(NORMALIZE_STATIC)
-	$(MINIPERL) -I..\lib list_static_libs.pl > Extensions_static
+	$(MINIPERL) -I../lib list_static_libs.pl > Extensions_static
 
-Extensions_nonxs : ..\make_ext.pl ..\pod\perlfunc.pod $(CONFIGPM) $(GLOBEXE)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --nonxs !libs
+Extensions_nonxs : ../make_ext.pl ../pod/perlfunc.pod $(CONFIGPM) $(GLOBEXE)
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --nonxs !libs
 
-Extension_lib : ..\make_ext.pl $(CONFIGPM)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) lib
+Extension_lib : ../make_ext.pl $(CONFIGPM)
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) lib
 
 #lib must be built, it can't be buildcustomize.pl-ed, and is required for XS building
-$(DYNALOADER) : ..\make_ext.pl $(CONFIGPM) $(HAVE_COREDIR)
-	$(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(EXTDIR) --dir=$(DISTDIR) --dynaloader
+$(DYNALOADER) : ../make_ext.pl $(CONFIGPM) $(HAVE_COREDIR)
+	$(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(EXTDIR) --dir=$(DISTDIR) --dynaloader
 
 Extensions_clean :
-	-if exist $(MINIPERL) $(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --all --target=clean
+	-if exist $(MINIPERL) $(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --all --target=clean
 
 Extensions_realclean :
-	-if exist $(MINIPERL) $(MINIPERL) -I..\lib ..\make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --all --target=realclean
+	-if exist $(MINIPERL) $(MINIPERL) -I../lib ../make_ext.pl "MAKE=$(PLMAKE)" --dir=$(CPANDIR) --dir=$(DISTDIR) --dir=$(EXTDIR) --all --target=realclean
 
 # all PE files need to be built by the time this target runs, PP files can still
 # be running in parallel like UNIDATAFILES, this target a placeholder for the
@@ -1719,147 +1719,147 @@ endif
 
 #-------------------------------------------------------------------------------
 
-doc: $(PERLEXE) $(PERLDLL) ..\pod\perltoc.pod
-	$(PERLEXE) -I..\lib ..\installhtml --podroot=.. --htmldir=$(HTMLDIR) \
+doc: $(PERLEXE) $(PERLDLL) ../pod/perltoc.pod
+	$(PERLEXE) -I../lib ../installhtml --podroot=.. --htmldir=$(HTMLDIR) \
 	    --podpath=pod:lib:utils --htmlroot="file://$(subst :,|,$(INST_HTML))"\
 	    --recurse
 
-..\utils\Makefile: $(CONFIGPM) ..\utils\Makefile.PL
-	$(MINIPERL) -I..\lib ..\utils\Makefile.PL ..
+../utils/Makefile: $(CONFIGPM) ../utils/Makefile.PL
+	$(MINIPERL) -I../lib ../utils/Makefile.PL ..
 
 # Note that this next section is parsed (and regenerated) by pod/buildtoc
 # so please check that script before making structural changes here
-utils: $(HAVEMINIPERL) ..\utils\Makefile
-	cd ..\utils && $(PLMAKE) PERL=$(MINIPERL)
-	copy ..\README.aix      ..\pod\perlaix.pod
-	copy ..\README.amiga    ..\pod\perlamiga.pod
-	copy ..\README.android  ..\pod\perlandroid.pod
-	copy ..\README.bs2000   ..\pod\perlbs2000.pod
-	copy ..\README.cn       ..\pod\perlcn.pod
-	copy ..\README.cygwin   ..\pod\perlcygwin.pod
-	copy ..\README.dos      ..\pod\perldos.pod
-	copy ..\README.freebsd  ..\pod\perlfreebsd.pod
-	copy ..\README.haiku    ..\pod\perlhaiku.pod
-	copy ..\README.hpux     ..\pod\perlhpux.pod
-	copy ..\README.hurd     ..\pod\perlhurd.pod
-	copy ..\README.irix     ..\pod\perlirix.pod
-	copy ..\README.jp       ..\pod\perljp.pod
-	copy ..\README.ko       ..\pod\perlko.pod
-	copy ..\README.linux    ..\pod\perllinux.pod
-	copy ..\README.macos    ..\pod\perlmacos.pod
-	copy ..\README.macosx   ..\pod\perlmacosx.pod
-	copy ..\README.netware  ..\pod\perlnetware.pod
-	copy ..\README.openbsd  ..\pod\perlopenbsd.pod
-	copy ..\README.os2      ..\pod\perlos2.pod
-	copy ..\README.os390    ..\pod\perlos390.pod
-	copy ..\README.os400    ..\pod\perlos400.pod
-	copy ..\README.plan9    ..\pod\perlplan9.pod
-	copy ..\README.qnx      ..\pod\perlqnx.pod
-	copy ..\README.riscos   ..\pod\perlriscos.pod
-	copy ..\README.solaris  ..\pod\perlsolaris.pod
-	copy ..\README.symbian  ..\pod\perlsymbian.pod
-	copy ..\README.synology ..\pod\perlsynology.pod
-	copy ..\README.tru64    ..\pod\perltru64.pod
-	copy ..\README.tw       ..\pod\perltw.pod
-	copy ..\README.vos      ..\pod\perlvos.pod
-	copy ..\README.win32    ..\pod\perlwin32.pod
-	copy ..\pod\perldelta.pod ..\pod\perl5313delta.pod
-	$(MINIPERL) -I..\lib $(PL2BAT) $(UTILS)
-	$(MINIPERL) -I..\lib ..\autodoc.pl ..
-	$(MINIPERL) -I..\lib ..\pod\perlmodlib.PL -q ..
+utils: $(HAVEMINIPERL) ../utils/Makefile
+	cd ../utils && $(PLMAKE) PERL=$(MINIPERL)
+	copy ../README.aix      ../pod/perlaix.pod
+	copy ../README.amiga    ../pod/perlamiga.pod
+	copy ../README.android  ../pod/perlandroid.pod
+	copy ../README.bs2000   ../pod/perlbs2000.pod
+	copy ../README.cn       ../pod/perlcn.pod
+	copy ../README.cygwin   ../pod/perlcygwin.pod
+	copy ../README.dos      ../pod/perldos.pod
+	copy ../README.freebsd  ../pod/perlfreebsd.pod
+	copy ../README.haiku    ../pod/perlhaiku.pod
+	copy ../README.hpux     ../pod/perlhpux.pod
+	copy ../README.hurd     ../pod/perlhurd.pod
+	copy ../README.irix     ../pod/perlirix.pod
+	copy ../README.jp       ../pod/perljp.pod
+	copy ../README.ko       ../pod/perlko.pod
+	copy ../README.linux    ../pod/perllinux.pod
+	copy ../README.macos    ../pod/perlmacos.pod
+	copy ../README.macosx   ../pod/perlmacosx.pod
+	copy ../README.netware  ../pod/perlnetware.pod
+	copy ../README.openbsd  ../pod/perlopenbsd.pod
+	copy ../README.os2      ../pod/perlos2.pod
+	copy ../README.os390    ../pod/perlos390.pod
+	copy ../README.os400    ../pod/perlos400.pod
+	copy ../README.plan9    ../pod/perlplan9.pod
+	copy ../README.qnx      ../pod/perlqnx.pod
+	copy ../README.riscos   ../pod/perlriscos.pod
+	copy ../README.solaris  ../pod/perlsolaris.pod
+	copy ../README.symbian  ../pod/perlsymbian.pod
+	copy ../README.synology ../pod/perlsynology.pod
+	copy ../README.tru64    ../pod/perltru64.pod
+	copy ../README.tw       ../pod/perltw.pod
+	copy ../README.vos      ../pod/perlvos.pod
+	copy ../README.win32    ../pod/perlwin32.pod
+	copy ../pod/perldelta.pod ../pod/perl5313delta.pod
+	$(MINIPERL) -I../lib $(PL2BAT) $(UTILS)
+	$(MINIPERL) -I../lib ../autodoc.pl ..
+	$(MINIPERL) -I../lib ../pod/perlmodlib.PL -q ..
 
-..\pod\perltoc.pod: $(PERLEXE) $(PERLDLL) Extensions Extensions_nonxs $(NORMALIZE_DYN) utils
-	$(PERLEXE) -f ..\pod\buildtoc -q
+../pod/perltoc.pod: $(PERLEXE) $(PERLDLL) Extensions Extensions_nonxs $(NORMALIZE_DYN) utils
+	$(PERLEXE) -f ../pod/buildtoc -q
 
 # Note that the pod cleanup in this next section is parsed (and regenerated
 # by pod/buildtoc so please check that script before making changes here
 
 distclean: realclean
 	-del /f $(MINIPERL) $(PERLEXE) $(PERLDLL) $(GLOBEXE) \
-		$(PERLIMPLIB) ..\miniperl$(a) $(PERLEXESTATIC) $(PERLSTATICLIB)
-	-del /f $(LIBDIR)\Encode.pm $(LIBDIR)\encoding.pm $(LIBDIR)\Errno.pm
-	-del /f $(LIBDIR)\Config.pod $(LIBDIR)\POSIX.pod $(LIBDIR)\threads.pm
-	-del /f $(LIBDIR)\.exists $(LIBDIR)\attributes.pm $(LIBDIR)\DynaLoader.pm
-	-del /f $(LIBDIR)\Fcntl.pm $(LIBDIR)\IO.pm $(LIBDIR)\Opcode.pm
-	-del /f $(LIBDIR)\ops.pm $(LIBDIR)\Safe.pm
-	-del /f $(LIBDIR)\SDBM_File.pm $(LIBDIR)\Socket.pm $(LIBDIR)\POSIX.pm
-	-del /f $(LIBDIR)\B.pm $(LIBDIR)\O.pm $(LIBDIR)\re.pm
-	-del /f $(LIBDIR)\File\Glob.pm
-	-del /f $(LIBDIR)\Sys\Hostname.pm
-	-del /f $(LIBDIR)\Time\HiRes.pm
-	-del /f $(LIBDIR)\Unicode\Normalize.pm
-	-del /f $(LIBDIR)\Math\BigInt\FastCalc.pm
-	-del /f $(LIBDIR)\Storable.pm $(LIBDIR)\Storable\Limit.pm
-	-del /f $(LIBDIR)\Win32.pm
-	-del /f $(LIBDIR)\Win32CORE.pm
-	-del /f $(LIBDIR)\Win32API\File.pm
-	-del /f $(LIBDIR)\Win32API\File\cFile.pc
-	-del /f $(LIBDIR)\buildcustomize.pl
-	-del /f $(DISTDIR)\XSLoader\XSLoader.pm
+		$(PERLIMPLIB) ../miniperl$(a) $(PERLEXESTATIC) $(PERLSTATICLIB)
+	-del /f $(LIBDIR)/Encode.pm $(LIBDIR)/encoding.pm $(LIBDIR)/Errno.pm
+	-del /f $(LIBDIR)/Config.pod $(LIBDIR)/POSIX.pod $(LIBDIR)/threads.pm
+	-del /f $(LIBDIR)/.exists $(LIBDIR)/attributes.pm $(LIBDIR)/DynaLoader.pm
+	-del /f $(LIBDIR)/Fcntl.pm $(LIBDIR)/IO.pm $(LIBDIR)/Opcode.pm
+	-del /f $(LIBDIR)/ops.pm $(LIBDIR)/Safe.pm
+	-del /f $(LIBDIR)/SDBM_File.pm $(LIBDIR)/Socket.pm $(LIBDIR)/POSIX.pm
+	-del /f $(LIBDIR)/B.pm $(LIBDIR)/O.pm $(LIBDIR)/re.pm
+	-del /f $(LIBDIR)/File/Glob.pm
+	-del /f $(LIBDIR)/Sys/Hostname.pm
+	-del /f $(LIBDIR)/Time/HiRes.pm
+	-del /f $(LIBDIR)/Unicode/Normalize.pm
+	-del /f $(LIBDIR)/Math/BigInt/FastCalc.pm
+	-del /f $(LIBDIR)/Storable.pm $(LIBDIR)/Storable/Limit.pm
+	-del /f $(LIBDIR)/Win32.pm
+	-del /f $(LIBDIR)/Win32CORE.pm
+	-del /f $(LIBDIR)/Win32API/File.pm
+	-del /f $(LIBDIR)/Win32API/File/cFile.pc
+	-del /f $(LIBDIR)/buildcustomize.pl
+	-del /f $(DISTDIR)/XSLoader/XSLoader.pm
 	-del /f *.def *.map
-	-if exist $(LIBDIR)\Amiga rmdir /s /q $(LIBDIR)\Amiga
-	-if exist $(LIBDIR)\App rmdir /s /q $(LIBDIR)\App
-	-if exist $(LIBDIR)\Archive rmdir /s /q $(LIBDIR)\Archive
-	-if exist $(LIBDIR)\Attribute rmdir /s /q $(LIBDIR)\Attribute
-	-if exist $(LIBDIR)\autodie rmdir /s /q $(LIBDIR)\autodie
-	-if exist $(LIBDIR)\Carp rmdir /s /q $(LIBDIR)\Carp
-	-if exist $(LIBDIR)\Compress rmdir /s /q $(LIBDIR)\Compress
-	-if exist $(LIBDIR)\Config\Perl rmdir /s /q $(LIBDIR)\Config\Perl
-	-if exist $(LIBDIR)\CPAN rmdir /s /q $(LIBDIR)\CPAN
-	-if exist $(LIBDIR)\Data rmdir /s /q $(LIBDIR)\Data
-	-if exist $(LIBDIR)\Devel rmdir /s /q $(LIBDIR)\Devel
-	-if exist $(LIBDIR)\Digest rmdir /s /q $(LIBDIR)\Digest
-	-if exist $(LIBDIR)\Encode rmdir /s /q $(LIBDIR)\Encode
-	-if exist $(LIBDIR)\encoding rmdir /s /q $(LIBDIR)\encoding
-	-if exist $(LIBDIR)\Exporter rmdir /s /q $(LIBDIR)\Exporter
-	-if exist $(LIBDIR)\ExtUtils\CBuilder rmdir /s /q $(LIBDIR)\ExtUtils\CBuilder
-	-if exist $(LIBDIR)\ExtUtils\Command rmdir /s /q $(LIBDIR)\ExtUtils\Command
-	-if exist $(LIBDIR)\ExtUtils\Constant rmdir /s /q $(LIBDIR)\ExtUtils\Constant
-	-if exist $(LIBDIR)\ExtUtils\Liblist rmdir /s /q $(LIBDIR)\ExtUtils\Liblist
-	-if exist $(LIBDIR)\ExtUtils\MakeMaker rmdir /s /q $(LIBDIR)\ExtUtils\MakeMaker
-	-if exist $(LIBDIR)\ExtUtils\ParseXS rmdir /s /q $(LIBDIR)\ExtUtils\ParseXS
-	-if exist $(LIBDIR)\ExtUtils\Typemaps rmdir /s /q $(LIBDIR)\ExtUtils\Typemaps
-	-if exist $(LIBDIR)\File\Spec rmdir /s /q $(LIBDIR)\File\Spec
-	-if exist $(LIBDIR)\Filter rmdir /s /q $(LIBDIR)\Filter
-	-if exist $(LIBDIR)\Hash rmdir /s /q $(LIBDIR)\Hash
-	-if exist $(LIBDIR)\HTTP rmdir /s /q $(LIBDIR)\HTTP
-	-if exist $(LIBDIR)\I18N rmdir /s /q $(LIBDIR)\I18N
-	-if exist $(LIBDIR)\inc rmdir /s /q $(LIBDIR)\inc
-	-if exist $(LIBDIR)\IO rmdir /s /q $(LIBDIR)\IO
-	-if exist $(LIBDIR)\IPC rmdir /s /q $(LIBDIR)\IPC
-	-if exist $(LIBDIR)\JSON rmdir /s /q $(LIBDIR)\JSON
-	-if exist $(LIBDIR)\List rmdir /s /q $(LIBDIR)\List
-	-if exist $(LIBDIR)\Locale rmdir /s /q $(LIBDIR)\Locale
-	-if exist $(LIBDIR)\Math rmdir /s /q $(LIBDIR)\Math
-	-if exist $(LIBDIR)\Memoize rmdir /s /q $(LIBDIR)\Memoize
-	-if exist $(LIBDIR)\MIME rmdir /s /q $(LIBDIR)\MIME
-	-if exist $(LIBDIR)\Module rmdir /s /q $(LIBDIR)\Module
-	-if exist $(LIBDIR)\Net\FTP rmdir /s /q $(LIBDIR)\Net\FTP
-	-if exist $(LIBDIR)\Params rmdir /s /q $(LIBDIR)\Params
-	-if exist $(LIBDIR)\Parse rmdir /s /q $(LIBDIR)\Parse
-	-if exist $(LIBDIR)\Perl rmdir /s /q $(LIBDIR)\Perl
-	-if exist $(LIBDIR)\PerlIO rmdir /s /q $(LIBDIR)\PerlIO
-	-if exist $(LIBDIR)\Pod\Perldoc rmdir /s /q $(LIBDIR)\Pod\Perldoc
-	-if exist $(LIBDIR)\Pod\Simple rmdir /s /q $(LIBDIR)\Pod\Simple
-	-if exist $(LIBDIR)\Pod\Text rmdir /s /q $(LIBDIR)\Pod\Text
-	-if exist $(LIBDIR)\Scalar rmdir /s /q $(LIBDIR)\Scalar
-	-if exist $(LIBDIR)\Search rmdir /s /q $(LIBDIR)\Search
-	-if exist $(LIBDIR)\Sub rmdir /s /q $(LIBDIR)\Sub
-	-if exist $(LIBDIR)\Sys rmdir /s /q $(LIBDIR)\Sys
-	-if exist $(LIBDIR)\TAP rmdir /s /q $(LIBDIR)\TAP
-	-if exist $(LIBDIR)\Term rmdir /s /q $(LIBDIR)\Term
-	-if exist $(LIBDIR)\Test rmdir /s /q $(LIBDIR)\Test
-	-if exist $(LIBDIR)\Test2 rmdir /s /q $(LIBDIR)\Test2
-	-if exist $(LIBDIR)\Text rmdir /s /q $(LIBDIR)\Text
-	-if exist $(LIBDIR)\Thread rmdir /s /q $(LIBDIR)\Thread
-	-if exist $(LIBDIR)\threads rmdir /s /q $(LIBDIR)\threads
-	-if exist $(LIBDIR)\Tie\Hash rmdir /s /q $(LIBDIR)\Tie\Hash
-	-if exist $(LIBDIR)\Unicode\Collate rmdir /s /q $(LIBDIR)\Unicode\Collate
-	-if exist $(LIBDIR)\Unicode\Collate\Locale rmdir /s /q $(LIBDIR)\Unicode\Collate\Locale
-	-if exist $(LIBDIR)\version rmdir /s /q $(LIBDIR)\version
-	-if exist $(LIBDIR)\VMS rmdir /s /q $(LIBDIR)\VMS
-	-if exist $(LIBDIR)\Win32API rmdir /s /q $(LIBDIR)\Win32API
-	-if exist $(LIBDIR)\XS rmdir /s /q $(LIBDIR)\XS
+	-if exist $(LIBDIR)/Amiga rmdir /s /q $(LIBDIR)/Amiga
+	-if exist $(LIBDIR)/App rmdir /s /q $(LIBDIR)/App
+	-if exist $(LIBDIR)/Archive rmdir /s /q $(LIBDIR)/Archive
+	-if exist $(LIBDIR)/Attribute rmdir /s /q $(LIBDIR)/Attribute
+	-if exist $(LIBDIR)/autodie rmdir /s /q $(LIBDIR)/autodie
+	-if exist $(LIBDIR)/Carp rmdir /s /q $(LIBDIR)/Carp
+	-if exist $(LIBDIR)/Compress rmdir /s /q $(LIBDIR)/Compress
+	-if exist $(LIBDIR)/Config/Perl rmdir /s /q $(LIBDIR)/Config/Perl
+	-if exist $(LIBDIR)/CPAN rmdir /s /q $(LIBDIR)/CPAN
+	-if exist $(LIBDIR)/Data rmdir /s /q $(LIBDIR)/Data
+	-if exist $(LIBDIR)/Devel rmdir /s /q $(LIBDIR)/Devel
+	-if exist $(LIBDIR)/Digest rmdir /s /q $(LIBDIR)/Digest
+	-if exist $(LIBDIR)/Encode rmdir /s /q $(LIBDIR)/Encode
+	-if exist $(LIBDIR)/encoding rmdir /s /q $(LIBDIR)/encoding
+	-if exist $(LIBDIR)/Exporter rmdir /s /q $(LIBDIR)/Exporter
+	-if exist $(LIBDIR)/ExtUtils/CBuilder rmdir /s /q $(LIBDIR)/ExtUtils/CBuilder
+	-if exist $(LIBDIR)/ExtUtils/Command rmdir /s /q $(LIBDIR)/ExtUtils/Command
+	-if exist $(LIBDIR)/ExtUtils/Constant rmdir /s /q $(LIBDIR)/ExtUtils/Constant
+	-if exist $(LIBDIR)/ExtUtils/Liblist rmdir /s /q $(LIBDIR)/ExtUtils/Liblist
+	-if exist $(LIBDIR)/ExtUtils/MakeMaker rmdir /s /q $(LIBDIR)/ExtUtils/MakeMaker
+	-if exist $(LIBDIR)/ExtUtils/ParseXS rmdir /s /q $(LIBDIR)/ExtUtils/ParseXS
+	-if exist $(LIBDIR)/ExtUtils/Typemaps rmdir /s /q $(LIBDIR)/ExtUtils/Typemaps
+	-if exist $(LIBDIR)/File/Spec rmdir /s /q $(LIBDIR)/File/Spec
+	-if exist $(LIBDIR)/Filter rmdir /s /q $(LIBDIR)/Filter
+	-if exist $(LIBDIR)/Hash rmdir /s /q $(LIBDIR)/Hash
+	-if exist $(LIBDIR)/HTTP rmdir /s /q $(LIBDIR)/HTTP
+	-if exist $(LIBDIR)/I18N rmdir /s /q $(LIBDIR)/I18N
+	-if exist $(LIBDIR)/inc rmdir /s /q $(LIBDIR)/inc
+	-if exist $(LIBDIR)/IO rmdir /s /q $(LIBDIR)/IO
+	-if exist $(LIBDIR)/IPC rmdir /s /q $(LIBDIR)/IPC
+	-if exist $(LIBDIR)/JSON rmdir /s /q $(LIBDIR)/JSON
+	-if exist $(LIBDIR)/List rmdir /s /q $(LIBDIR)/List
+	-if exist $(LIBDIR)/Locale rmdir /s /q $(LIBDIR)/Locale
+	-if exist $(LIBDIR)/Math rmdir /s /q $(LIBDIR)/Math
+	-if exist $(LIBDIR)/Memoize rmdir /s /q $(LIBDIR)/Memoize
+	-if exist $(LIBDIR)/MIME rmdir /s /q $(LIBDIR)/MIME
+	-if exist $(LIBDIR)/Module rmdir /s /q $(LIBDIR)/Module
+	-if exist $(LIBDIR)/Net/FTP rmdir /s /q $(LIBDIR)/Net/FTP
+	-if exist $(LIBDIR)/Params rmdir /s /q $(LIBDIR)/Params
+	-if exist $(LIBDIR)/Parse rmdir /s /q $(LIBDIR)/Parse
+	-if exist $(LIBDIR)/Perl rmdir /s /q $(LIBDIR)/Perl
+	-if exist $(LIBDIR)/PerlIO rmdir /s /q $(LIBDIR)/PerlIO
+	-if exist $(LIBDIR)/Pod/Perldoc rmdir /s /q $(LIBDIR)/Pod/Perldoc
+	-if exist $(LIBDIR)/Pod/Simple rmdir /s /q $(LIBDIR)/Pod/Simple
+	-if exist $(LIBDIR)/Pod/Text rmdir /s /q $(LIBDIR)/Pod/Text
+	-if exist $(LIBDIR)/Scalar rmdir /s /q $(LIBDIR)/Scalar
+	-if exist $(LIBDIR)/Search rmdir /s /q $(LIBDIR)/Search
+	-if exist $(LIBDIR)/Sub rmdir /s /q $(LIBDIR)/Sub
+	-if exist $(LIBDIR)/Sys rmdir /s /q $(LIBDIR)/Sys
+	-if exist $(LIBDIR)/TAP rmdir /s /q $(LIBDIR)/TAP
+	-if exist $(LIBDIR)/Term rmdir /s /q $(LIBDIR)/Term
+	-if exist $(LIBDIR)/Test rmdir /s /q $(LIBDIR)/Test
+	-if exist $(LIBDIR)/Test2 rmdir /s /q $(LIBDIR)/Test2
+	-if exist $(LIBDIR)/Text rmdir /s /q $(LIBDIR)/Text
+	-if exist $(LIBDIR)/Thread rmdir /s /q $(LIBDIR)/Thread
+	-if exist $(LIBDIR)/threads rmdir /s /q $(LIBDIR)/threads
+	-if exist $(LIBDIR)/Tie/Hash rmdir /s /q $(LIBDIR)/Tie/Hash
+	-if exist $(LIBDIR)/Unicode/Collate rmdir /s /q $(LIBDIR)/Unicode/Collate
+	-if exist $(LIBDIR)/Unicode/Collate/Locale rmdir /s /q $(LIBDIR)/Unicode/Collate/Locale
+	-if exist $(LIBDIR)/version rmdir /s /q $(LIBDIR)/version
+	-if exist $(LIBDIR)/VMS rmdir /s /q $(LIBDIR)/VMS
+	-if exist $(LIBDIR)/Win32API rmdir /s /q $(LIBDIR)/Win32API
+	-if exist $(LIBDIR)/XS rmdir /s /q $(LIBDIR)/XS
 	-cd $(PODDIR) && del /f *.html *.bat roffitall \
 	    perl5313delta.pod perlaix.pod perlamiga.pod perlandroid.pod \
 	    perlapi.pod perlbs2000.pod perlcn.pod perlcygwin.pod \
@@ -1871,61 +1871,61 @@ distclean: realclean
 	    perlsolaris.pod perlsymbian.pod perlsynology.pod perltoc.pod \
 	    perltru64.pod perltw.pod perluniprops.pod perlvos.pod \
 	    perlwin32.pod
-	-cd ..\utils && del /f h2ph splain perlbug pl2pm h2xs \
+	-cd ../utils && del /f h2ph splain perlbug pl2pm h2xs \
 	    perldoc perlivp libnetcfg enc2xs encguess piconv cpan *.bat \
 	    xsubpp pod2html instmodsh json_pp prove ptar ptardiff ptargrep shasum corelist zipdetails
-	-del /f ..\config.sh perlmain.c dlutils.c config.h.new \
+	-del /f ../config.sh perlmain.c dlutils.c config.h.new \
 	    perlmainst.c
 	-del /f $(CONFIGPM)
-	-del /f ..\lib\Config_git.pl
-	-del /f "bin\*.bat"
+	-del /f ../lib/Config_git.pl
+	-del /f "bin/*.bat"
 	-del /f perllibst.h
 	-del /f $(PERLEXE_RES) perl.base
 	-cd .. && del /s *$(a) *.map *.pdb *.ilk *.bs *$(o) .exists pm_to_blib ppport.h
 	-cd $(EXTDIR) && del /s *.def Makefile Makefile.old
 	-cd $(DISTDIR) && del /s *.def Makefile Makefile.old
 	-cd $(CPANDIR) && del /s *.def Makefile Makefile.old
-	-del /s ..\utils\Makefile
+	-del /s ../utils/Makefile
 	-if exist $(AUTODIR) rmdir /s /q $(AUTODIR)
 	-if exist $(COREDIR) rmdir /s /q $(COREDIR)
 	-if exist pod2htmd.tmp del pod2htmd.tmp
 	-if exist $(HTMLDIR) rmdir /s /q $(HTMLDIR)
-	-del /f ..\t\test_state
+	-del /f ../t/test_state
 
 install : all installbare installhtml
 
-installbare : utils ..\pod\perltoc.pod
-	$(PERLEXE) ..\installperl
-	if exist $(WPERLEXE) $(XCOPY) $(WPERLEXE) $(INST_BIN)\$(NULL)
-	if exist $(PERLEXESTATIC) $(XCOPY) $(PERLEXESTATIC) $(INST_BIN)\$(NULL)
-	$(XCOPY) $(GLOBEXE) $(INST_BIN)\$(NULL)
-	if exist ..\perl*.pdb $(XCOPY) ..\perl*.pdb $(INST_BIN)\$(NULL)
-	$(XCOPY) "bin\*.bat" $(INST_SCRIPT)\$(NULL)
+installbare : utils ../pod/perltoc.pod
+	$(PERLEXE) ../installperl
+	if exist $(WPERLEXE) $(XCOPY) $(WPERLEXE) $(INST_BIN)/$(NULL)
+	if exist $(PERLEXESTATIC) $(XCOPY) $(PERLEXESTATIC) $(INST_BIN)/$(NULL)
+	$(XCOPY) $(GLOBEXE) $(INST_BIN)/$(NULL)
+	if exist ../perl*.pdb $(XCOPY) ../perl*.pdb $(INST_BIN)/$(NULL)
+	$(XCOPY) "bin/*.bat" $(INST_SCRIPT)/$(NULL)
 
 installhtml : doc
-	$(RCOPY) $(HTMLDIR)\*.* $(INST_HTML)\$(NULL)
+	$(RCOPY) $(HTMLDIR)/*.* $(INST_HTML)/$(NULL)
 
 inst_lib : $(CONFIGPM)
-	$(RCOPY) ..\lib $(INST_LIB)\$(NULL)
+	$(RCOPY) ../lib $(INST_LIB)/$(NULL)
 
-$(UNIDATAFILES) : ..\pod\perluniprops.pod
+$(UNIDATAFILES) : ../pod/perluniprops.pod
 
-..\pod\perluniprops.pod: ..\lib\unicore\mktables $(CONFIGPM)
-	$(MINIPERL) -I..\lib ..\lib\unicore\mktables -C ..\lib\unicore -P ..\pod -maketest -makelist -p
+../pod/perluniprops.pod: ../lib/unicore/mktables $(CONFIGPM)
+	$(MINIPERL) -I../lib ../lib/unicore/mktables -C ../lib/unicore -P ../pod -maketest -makelist -p
 
 minitest : $(HAVEMINIPERL) $(GLOBEXE) $(CONFIGPM) $(UNIDATAFILES) utils
-	$(XCOPY) $(MINIPERL) ..\t\$(NULL)
-	if exist ..\t\perl.exe del /f ..\t\perl.exe
-	rename ..\t\miniperl.exe perl.exe
-	$(XCOPY) $(GLOBEXE) ..\t\$(NULL)
-	attrib -r "..\t\*.*"
-	cd ..\t && \
-	$(MINIPERL) -I..\lib harness base/*.t comp/*.t cmd/*.t io/*.t opbasic/*.t op/*.t pragma/*.t
+	$(XCOPY) $(MINIPERL) ../t/$(NULL)
+	if exist ../t/perl.exe del /f ../t/perl.exe
+	rename ../t/miniperl.exe perl.exe
+	$(XCOPY) $(GLOBEXE) ../t/$(NULL)
+	attrib -r "../t/*.*"
+	cd ../t && \
+	$(MINIPERL) -I../lib harness base/*.t comp/*.t cmd/*.t io/*.t opbasic/*.t op/*.t pragma/*.t
 
-test-prep : all utils ..\pod\perltoc.pod $(TESTPREPGCC)
-	$(XCOPY) $(PERLEXE) ..\t\$(NULL)
-	$(XCOPY) $(PERLDLL) ..\t\$(NULL)
-	$(XCOPY) $(GLOBEXE) ..\t\$(NULL)
+test-prep : all utils ../pod/perltoc.pod $(TESTPREPGCC)
+	$(XCOPY) $(PERLEXE) ../t/$(NULL)
+	$(XCOPY) $(PERLDLL) ../t/$(NULL)
+	$(XCOPY) $(GLOBEXE) ../t/$(NULL)
 # If building with gcc versions 4.x.x or greater, then
 # the GCC helper DLL will also need copied to the test directory.
 # The name of the dll can change, depending upon which vendor has supplied
@@ -1936,27 +1936,27 @@ test-prep : all utils ..\pod\perltoc.pod $(TESTPREPGCC)
 ifeq ($(CCTYPE),GCC)
 
 test-prep-gcc :
-	if exist $(CCDLLDIR)\libgcc_s_seh-1.dll $(XCOPY) $(CCDLLDIR)\libgcc_s_seh-1.dll ..\t\$(NULL)
-	if exist $(CCDLLDIR)\libgcc_s_sjlj-1.dll $(XCOPY) $(CCDLLDIR)\libgcc_s_sjlj-1.dll ..\t\$(NULL)
-	if exist $(CCDLLDIR)\libgcc_s_dw2-1.dll $(XCOPY) $(CCDLLDIR)\libgcc_s_dw2-1.dll ..\t\$(NULL)
-	if exist $(CCDLLDIR)\libstdc++-6.dll $(XCOPY) $(CCDLLDIR)\libstdc++-6.dll ..\t\$(NULL)
-	if exist $(CCDLLDIR)\libwinpthread-1.dll $(XCOPY) $(CCDLLDIR)\libwinpthread-1.dll ..\t\$(NULL)
+	if exist $(CCDLLDIR)/libgcc_s_seh-1.dll $(XCOPY) $(CCDLLDIR)/libgcc_s_seh-1.dll ../t/$(NULL)
+	if exist $(CCDLLDIR)/libgcc_s_sjlj-1.dll $(XCOPY) $(CCDLLDIR)/libgcc_s_sjlj-1.dll ../t/$(NULL)
+	if exist $(CCDLLDIR)/libgcc_s_dw2-1.dll $(XCOPY) $(CCDLLDIR)/libgcc_s_dw2-1.dll ../t/$(NULL)
+	if exist $(CCDLLDIR)/libstdc++-6.dll $(XCOPY) $(CCDLLDIR)/libstdc++-6.dll ../t/$(NULL)
+	if exist $(CCDLLDIR)/libwinpthread-1.dll $(XCOPY) $(CCDLLDIR)/libwinpthread-1.dll ../t/$(NULL)
 
 endif
 
 test : test-prep
 	set PERL_STATIC_EXT=$(STATIC_EXT) && \
-	    cd ..\t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
+	    cd ../t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
 
 test_porting : test-prep
 	set PERL_STATIC_EXT=$(STATIC_EXT) && \
-	    cd ..\t && perl.exe harness $(TEST_SWITCHES) porting\*.t ..\lib\diagnostics.t
+	    cd ../t && perl.exe harness $(TEST_SWITCHES) porting/*.t ../lib/diagnostics.t
 
 test-reonly : reonly utils
-	$(XCOPY) $(PERLEXE) ..\t\$(NULL)
-	$(XCOPY) $(PERLDLL) ..\t\$(NULL)
-	$(XCOPY) $(GLOBEXE) ..\t\$(NULL)
-	cd ..\t && perl.exe harness $(OPT) -re \bpat\\/ $(EXTRA)
+	$(XCOPY) $(PERLEXE) ../t/$(NULL)
+	$(XCOPY) $(PERLDLL) ../t/$(NULL)
+	$(XCOPY) $(GLOBEXE) ../t/$(NULL)
+	cd ../t && perl.exe harness $(OPT) -re /bpat/// $(EXTRA)
 
 regen :
 	cd .. && regen.pl
@@ -1964,14 +1964,14 @@ regen :
 test-notty : test-prep
 	set PERL_STATIC_EXT=$(STATIC_EXT) && \
 	    set PERL_SKIP_TTY_TEST=1 && \
-	    cd ..\t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
+	    cd ../t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
 
 _test :
-	$(XCOPY) $(PERLEXE) ..\t\$(NULL)
-	$(XCOPY) $(PERLDLL) ..\t\$(NULL)
-	$(XCOPY) $(GLOBEXE) ..\t\$(NULL)
+	$(XCOPY) $(PERLEXE) ../t/$(NULL)
+	$(XCOPY) $(PERLDLL) ../t/$(NULL)
+	$(XCOPY) $(GLOBEXE) ../t/$(NULL)
 	set PERL_STATIC_EXT=$(STATIC_EXT) && \
-	    cd ..\t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
+	    cd ../t && perl.exe harness $(TEST_SWITCHES) $(TEST_FILES)
 
 _clean :
 	-@erase miniperlmain$(o)
@@ -1980,7 +1980,7 @@ _clean :
 	-@erase perlmain$(o)
 	-@erase perlmainst$(o)
 	-@erase /f config.h
-	-@erase /f ..\git_version.h
+	-@erase /f ../git_version.h
 	-@erase $(GLOBEXE)
 	-@erase $(PERLEXE)
 	-@erase $(WPERLEXE)
@@ -1996,10 +1996,10 @@ _clean :
 	-@erase $(UNIDATAFILES)
 	-@erase $(WIN32_OBJ)
 	-@erase $(DLL_OBJ)
-	-@erase ..\*$(o) ..\*$(a) ..\*.exp *$(o) *$(a) *.exp *.res
-	-@erase ..\t\*.exe ..\t\*.dll ..\t\*.bat
+	-@erase ../*$(o) ../*$(a) ../*.exp *$(o) *$(a) *.exp *.res
+	-@erase ../t/*.exe ../t/*.dll ../t/*.bat
 	-@erase *.ilk
-	-@erase *.pdb ..\*.pdb
+	-@erase *.pdb ../*.pdb
 	-@erase Extensions_static
 
 clean : Extensions_clean _clean
@@ -2011,14 +2011,14 @@ realclean : Extensions_realclean _clean
 # Please *don't* use this unless all tests pass.
 # If you want to report test failures, use "gmake nok" instead.
 ok: utils $(PERLEXE) $(PERLDLL) Extensions_nonxs Extensions
-	$(PERLEXE) ..\utils\perlbug -ok -s "(UNINSTALLED)"
+	$(PERLEXE) ../utils/perlbug -ok -s "(UNINSTALLED)"
 
 okfile: utils $(PERLEXE) $(PERLDLL) Extensions_nonxs Extensions
-	$(PERLEXE) ..\utils\perlbug -ok -s "(UNINSTALLED)" -F perl.ok
+	$(PERLEXE) ../utils/perlbug -ok -s "(UNINSTALLED)" -F perl.ok
 
 nok: utils $(PERLEXE) $(PERLDLL) Extensions_nonxs Extensions
-	$(PERLEXE) ..\utils\perlbug -nok -s "(UNINSTALLED)"
+	$(PERLEXE) ../utils/perlbug -nok -s "(UNINSTALLED)"
 
 nokfile: utils $(PERLEXE) $(PERLDLL) Extensions_nonxs Extensions
-	$(PERLEXE) ..\utils\perlbug -nok -s "(UNINSTALLED)" -F perl.nok
+	$(PERLEXE) ../utils/perlbug -nok -s "(UNINSTALLED)" -F perl.nok
 
