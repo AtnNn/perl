@@ -55,7 +55,7 @@ INST_TOP := /home/atnnn/code/perl/prefix
 # Uncomment if you want to build a 32-bit Perl using a 32-bit compiler
 # on a 64-bit version of Windows.
 #
-#WIN64		:= undef
+WIN64		:= define
 
 #
 # Comment this out if you DON'T want your perl installation to be versioned.
