@@ -1,7 +1,7 @@
 #!/usr/bin/env perl
 
-# GNUmakefile requires SHELL := cmd.exe
-# But we want to run the build on Linux
+# Perl's w32 GNUmakefile uses SHELL = cmd.exe
+# But we want to run the build on Linux!
 
 use strict;
 use warnings;

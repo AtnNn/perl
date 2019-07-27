@@ -1047,8 +1047,8 @@ PERLDLLBASE	= perl531.dll
 # don't let "gmake -n all" try to run "miniperl.exe make_ext.pl"
 PLMAKE		= gmake
 
-XCOPY		= xcopy /f /r /i /d /y
-RCOPY		= xcopy /f /r /i /e /d /y
+XCOPY		= wine xcopy /f /r /i /d /y
+RCOPY		= wine xcopy /f /r /i /e /d /y
 NOOP		= @rem
 
 #first ones are arrange in compile time order for faster parallel building
@@ -1292,7 +1292,7 @@ else
 endif
 
 ../git_version.h : $(HAVEMINIPERL) ../make_patchnum.pl
-	perl $(MINIPERL) -I../lib ../make_patchnum.pl
+	$(MINIPERL) -I../lib ../make_patchnum.pl
 
 # make sure that we recompile perl.c if the git version changes
 ../perl$(o) : ../git_version.h
@@ -1634,9 +1634,9 @@ MakePPPort : $(HAVEMINIPERL) $(CONFIGPM)
 
 # also known as $(HAVE_COREDIR)
 .coreheaders : $(CORE_H)
-	$(XCOPY) *.h $(COREDIR)//*.*
-	$(RCOPY) include $(COREDIR)//*.*
-	$(XCOPY) ..//*.h $(COREDIR)//*.*
+	$(XCOPY) *.h $(COREDIR)//
+	$(RCOPY) include $(COREDIR)//
+	$(XCOPY) ..//*.h $(COREDIR)//
 	rem. > $@
 
 perlmain$(o) : runperl.c $(CONFIGPM)
