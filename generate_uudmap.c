@@ -19,7 +19,7 @@ struct mg_data_raw_t {
 };
 
 static struct mg_data_raw_t mg_data_raw[] = {
-#ifdef WIN32
+#if 0
 #  include "..\mg_raw.h"
 #else
 #  include "mg_raw.h"

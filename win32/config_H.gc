@@ -1167,7 +1167,7 @@
  *	the compiler supports (void *); otherwise it will be
  *	sizeof(char *).
  */
-#define PTRSIZE 4		/**/
+#define PTRSIZE 8		/**/
 
 /* Drand01:
  *	This macro is to be used to generate uniformly distributed

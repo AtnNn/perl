@@ -506,20 +506,20 @@ endif
 # Set the install location of the compiler headers/libraries.
 # These are saved into $Config{incpath} and $Config{libpth}.
 ifneq ($(GCCCROSS),)
-CCINCDIR := $(CCHOME)/$(GCCCROSS)/include
-CCLIBDIR := $(CCHOME)/$(GCCCROSS)/lib
+# CCINCDIR := $(CCHOME)/$(GCCCROSS)/include
+# CCLIBDIR := $(CCHOME)/$(GCCCROSS)/lib
 ARCHPREFIX := $(GCCCROSS)-
 else ifeq ($(CCTYPE),GCC)
-CCINCDIR := $(CCHOME)/include
-CCLIBDIR := $(CCHOME)/lib
+# CCINCDIR := $(CCHOME)/include
+# CCLIBDIR := $(CCHOME)/lib
 ARCHPREFIX :=
 else
-CCINCDIR := $(CCHOME)/include
+# CCINCDIR := $(CCHOME)/include
 ifeq ($(CCTYPE),MSVC141)
 ifeq ($(WIN64),define)
-CCLIBDIR := $(CCHOME)/lib/x64
+# CCLIBDIR := $(CCHOME)/lib/x64
 else
-CCLIBDIR := $(CCHOME)/lib/x86
+# CCLIBDIR := $(CCHOME)/lib/x86
 endif
 else ifeq ($(CCTYPE),MSVC142)
 ifeq ($(WIN64),define)
@@ -531,7 +531,7 @@ else
 ifeq ($(WIN64),define)
 CCLIBDIR := $(CCHOME)/lib/amd64
 else
-CCLIBDIR := $(CCHOME)/lib
+# CCLIBDIR := $(CCHOME)/lib
 endif
 endif
 ARCHPREFIX :=
@@ -632,7 +632,7 @@ ifeq ($(USE_CPLUSPLUS),define)
 EXTRACFLAGS	+= $(CXX_FLAG)
 endif
 CFLAGS		= $(EXTRACFLAGS) $(INCLUDES) $(DEFINES) $(LOCDEFS) $(OPTIMIZE)
-LINK_FLAGS	= $(LINK_DBG) -L"$(INST_COREDIR)" -L"$(CCLIBDIR)"
+LINK_FLAGS	= $(LINK_DBG) -L"$(INST_COREDIR)" # -L"$(CCLIBDIR)"
 OBJOUT_FLAG	= -o
 EXEOUT_FLAG	= -o
 LIBOUT_FLAG	=
@@ -944,8 +944,8 @@ endif
 #do not put $(MINIPERL) as a dep/prereq in a rule, instead put $(HAVEMINIPERL)
 #$(MINIPERL) is not a buildable target, use "gmake mp" if you want to just build
 #miniperl alone
-MINIPERL	= ../miniperl.exe
-HAVEMINIPERL	= ../lib/buildcustomize.pl
+MINIPERL	= env PERL5LIB=${CURDIR}:${CURDIR}/.. perl
+HAVEMINIPERL	=
 MINIDIR		= mini
 PERLEXE		= ../perl.exe
 WPERLEXE	= ../wperl.exe
@@ -1216,7 +1216,6 @@ CFG_VARS	=					\
 		"cf_email=$(EMAIL)"			\
 		"d_mymalloc=$(PERL_MALLOC)"		\
 		"libs=$(LIBFILES)"			\
-		"incpath=$(subst ",/",$(CCINCDIR))"			\
 		"libperl=$(subst ",/",$(PERLIMPLIBBASE))"		\
 		"libpth=$(subst ",/",$(CCLIBDIR);$(EXTRALIBDIRS))"	\
 		"libc=$(LIBC)"				\
@@ -1293,7 +1292,7 @@ else
 endif
 
 ../git_version.h : $(HAVEMINIPERL) ../make_patchnum.pl
-	$(MINIPERL) -I../lib ../make_patchnum.pl
+	perl $(MINIPERL) -I../lib ../make_patchnum.pl
 
 # make sure that we recompile perl.c if the git version changes
 ../perl$(o) : ../git_version.h
@@ -1617,7 +1616,7 @@ $(MINIDIR)/globals$(o) : $(GENERATED_HEADERS)
 $(UUDMAP_H) $(MG_DATA_H) : $(BITCOUNT_H)
 
 $(BITCOUNT_H) : $(GENUUDMAP)
-	$(GENUUDMAP) $(GENERATED_HEADERS)
+	wine $(GENUUDMAP) $(GENERATED_HEADERS)
 
 $(GENUUDMAP) : ../mg_raw.h
 ifeq ($(CCTYPE),GCC)

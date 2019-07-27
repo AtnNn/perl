@@ -21,7 +21,7 @@
 #include "EXTERN.h"
 #include "perl.h"
 
-#include "Win32iop.h"
+#include "win32iop.h"
 #include <sys/socket.h>
 #include <fcntl.h>
 #include <sys/stat.h>

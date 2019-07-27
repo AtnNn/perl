@@ -1,5 +1,8 @@
 #!/usr/bin/env perl
 
+# GNUmakefile requires SHELL := cmd.exe
+# But we want to run the build on Linux
+
 use strict;
 use warnings;
 use 5.010;
@@ -8,11 +11,13 @@ no warnings 'experimental';
 use Data::Dumper;
 use POSIX qw(dup dup2);
 
+# Parse and evaluate the command passed to "-c"
 sub cmd {
   my ($c) = @_;
   # print STDERR "\nprocessed cmd: ".Dumper($c);
+
   my $unescaped = qr/ (?<! \^ ) /nx;
-  my $wordchar = qr/( [a-zA-Z0-9\-_%=.\/#*,] | \\ (?! \\* " ) | \^. )/nx;
+  my $wordchar = qr/( [a-zA-Z0-9\-_%=.\/#*,+:;] | \\ (?! \\* " ) | \^. )/nx;
   my $quoted = qr/
     ( (\\\\) *)
     ( ( \\" )
@@ -33,6 +38,7 @@ sub cmd {
     )
   /nxs;
   my $white = qr/ ( [ \t\r\n] | \\ \n ) * /nx;
+
   my @tokens;
   while ($c =~ /
     ( $token
@@ -45,14 +51,11 @@ sub cmd {
     if (defined $+{op}) { push @tokens, $+{op} }
     if (defined $+{word}) {
       my $word = $+{word};
-      $word =~ s/
-        ((\\\\)*) ( \\? " )
-	/ ($1 =~ s|\\\\|\\|rg) .
-          ($3 eq "\"" ? "" : "\"") /xge;
       push @tokens, $word;
     }
   }
   # print STDERR "\ntokens: " . Dumper(@tokens);
+
   my $code = evalcmds(@tokens);
   if ($code == 0) {
     exit(0)
@@ -61,6 +64,7 @@ sub cmd {
   }
 }
 
+# Extract the next full command from the list of tokens
 sub popcmd {
   my ($cmds) = @_;
   my @ret;
@@ -85,13 +89,14 @@ sub popcmd {
   return @ret;
 }
 
+# Evaluate commands represented as a list of tokens
 sub evalcmds {
-  print STDERR "\nevalcmds: ".Dumper(\@_);
+  # print STDERR "\nevalcmds: ".Dumper(\@_);
   my @cmds = @_;
 
   my @cmd = popcmd(\@cmds);
-  print STDERR "\npopped: ".Dumper(\@cmd);
-  print STDERR "\nrest: ".Dumper(\@cmds);
+  # print STDERR "\npopped: ".Dumper(\@cmd);
+  # print STDERR "\nrest: ".Dumper(\@cmds);
 
   if ($#cmd == -1) {
     die "empty command!";
@@ -123,10 +128,12 @@ sub evalcmds {
       when (/^for$/i) { $ret = eval_for(@cmd[1 .. $#_]) }
       when (/^set$/i) { $ret = eval_set(@cmd[1 .. $#_]) }
       when (/^if$/i) { $ret = eval_if(@cmd[1 .. $#_]) }
-      when (/^copy$/i) { $ret = eval_copy(@cmd[1 .. $#_]) }
+      when (/^echo$/i) { $ret = 0; print "@cmd[1 .. $#cmd]\n" }
       when (/^rem$/i) { $ret = 0 }
       default {
-        print STDERR "system: ".join(" ",@cmd)."\n";
+	unquote(@cmd);
+        if ($cmd[0] =~ /^copy$/i) { $cmd[0] = "cp" }
+	# print STDERR "system: ".join(" ",@cmd)."\n";
         $ret = system(@cmd)
       }
     }
@@ -142,6 +149,17 @@ sub evalcmds {
   } else {
     die "unknown tail: @cmds";
   } 
+}
+
+# Remove double quotes from the argument
+sub unquote {
+  for (@_) {
+    s/
+      ((\\\\)*) ( \\? " )
+    / ($1 =~ s|\\\\|\\|rg) .
+      ($3 eq "\"" ? "" : "\"")
+    /xge;
+  }
 }
 
 sub eval_copy {
