@@ -13,6 +13,7 @@
 #
 # c:/dev/perlsrc/win32> gmake INST_TOP=c:/sw/perl CCHOME=c:/sw/mingw USE_64_BIT_INT=define
 
+BUILDPERL := /run/current-system/sw/bin/perl
 
 ##
 ## Make sure you read README.win32 *before* you mess with anything here!
@@ -944,7 +945,7 @@ endif
 #do not put $(MINIPERL) as a dep/prereq in a rule, instead put $(HAVEMINIPERL)
 #$(MINIPERL) is not a buildable target, use "gmake mp" if you want to just build
 #miniperl alone
-MINIPERL	= env PERL5LIB=${CURDIR}:${CURDIR}/.. perl
+MINIPERL	= env PERL5LIB=${CURDIR}:${CURDIR}/.. $(BUILDPERL)
 HAVEMINIPERL	=
 MINIDIR		= mini
 PERLEXE		= ../perl.exe
@@ -989,7 +990,6 @@ PERLDEP = $(PERLIMPLIB)
 PL2BAT		= bin/pl2bat.pl
 
 UTILS		=			\
-		../utils/h2ph		\
 		../utils/splain		\
 		../utils/perlbug	\
 		../utils/pl2pm 		\
@@ -1045,7 +1045,7 @@ PERLDLL		= ../perl531.dll
 PERLDLLBASE	= perl531.dll
 
 # don't let "gmake -n all" try to run "miniperl.exe make_ext.pl"
-PLMAKE		= gmake
+PLMAKE		= make
 
 XCOPY		= wine xcopy /f /r /i /d /y
 RCOPY		= wine xcopy /f /r /i /e /d /y

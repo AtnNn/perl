@@ -17,7 +17,7 @@ sub cmd {
   # print STDERR "\nprocessed cmd: ".Dumper($c);
 
   my $unescaped = qr/ (?<! \^ ) /nx;
-  my $wordchar = qr/( [a-zA-Z0-9\-_%=.\/#*,+:;] | \\ (?! \\* " ) | \^. )/nx;
+  my $wordchar = qr/( [a-zA-Z0-9\-_%=.\/#*,+:;!] | \\ (?! \\* " ) | \^. )/nx;
   my $quoted = qr/
     ( (\\\\) *)
     ( ( \\" )
@@ -130,6 +130,7 @@ sub evalcmds {
       when (/^if$/i) { $ret = eval_if(@cmd[1 .. $#_]) }
       when (/^echo$/i) { $ret = 0; print "@cmd[1 .. $#cmd]\n" }
       when (/^rem$/i) { $ret = 0 }
+      when (/^cd$/i) { $ret = ! chdir($cmd[1]) }
       default {
 	unquote(@cmd);
         if ($cmd[0] =~ /^copy$/i) { $cmd[0] = "cp" }
